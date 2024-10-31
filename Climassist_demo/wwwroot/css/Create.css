@@ -1,0 +1,56 @@
+﻿/* Create.css dosyasına ekleyin */
+.services {
+    padding: 60px 0; /* Üst ve alt boşluk ekleyin */
+}
+
+.section-title {
+    text-align: center; /* Başlığı ortalayın */
+    margin-bottom: 30px; /* Başlık altına boşluk ekleyin */
+}
+
+#createForm {
+    display: flex;
+    justify-content: center; /* Yatayda ortala */
+    align-items: center; /* Dikeyde ortala */
+    margin: 0 auto; /* Ortada görünmesi için otomatik yan boşluk */
+}
+
+.container {
+    max-width: 800px; /* Maksimum genişlik ayarla */
+    margin: 0 auto; /* Ortada görünmesi için otomatik yan boşluk */
+}
+
+.create-box {
+    background-color: #ffffff; /* Arka plan rengi */
+    border: 1px solid #cccccc; /* Kenarlık rengi */
+    border-radius: 8px; /* Köşe yuvarlama */
+    padding: 20px; /* İç boşluk */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+}
+
+/* Form alanlarının ayarları */
+.form-control,
+.form-select,
+textarea {
+    width: 100%; /* Genişlik */
+    padding: 10px; /* İç boşluk */
+    border: 1px solid #cccccc; /* Kenarlık rengi */
+    border-radius: 4px; /* Köşe yuvarlama */
+    box-sizing: border-box; /* Kutulama modeli */
+    margin-bottom: 15px; /* Alanlar arası boşluk */
+}
+
+/* Buton stili */
+.btn-primary {
+    background-color: #4CAF50; /* Buton arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Kenarlık yok */
+    border-radius: 4px; /* Köşe yuvarlama */
+    padding: 10px 15px; /* İç boşluk */
+    cursor: pointer; /* İmleç */
+    width: 100%; /* Buton genişliği */
+}
+
+    .btn-primary:hover {
+        background-color: #45a049; /* Hover rengi */
+    }

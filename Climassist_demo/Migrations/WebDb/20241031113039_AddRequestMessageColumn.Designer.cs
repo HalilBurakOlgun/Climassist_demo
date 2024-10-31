@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Climassist_demo.Migrations.WebDb
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20241030164904_AddAccountTypeToUsers")]
-    partial class AddAccountTypeToUsers
+    [Migration("20241031113039_AddRequestMessageColumn")]
+    partial class AddRequestMessageColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,28 +33,32 @@ namespace Climassist_demo.Migrations.WebDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ClientType")
+                    b.Property<string>("CompanyType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecoveryTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SparePartType")
+                    b.Property<string>("SparePart")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
@@ -63,10 +67,15 @@ namespace Climassist_demo.Migrations.WebDb
                     b.Property<string>("UnitType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserLastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserSurname")
+                    b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -82,8 +91,8 @@ namespace Climassist_demo.Migrations.WebDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AccountType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -123,6 +132,9 @@ namespace Climassist_demo.Migrations.WebDb
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
 
 namespace Climassist_demo.Models
 {
@@ -12,12 +11,9 @@ namespace Climassist_demo.Models
 
     public class Users : IdentityUser
     {
-        public string Fullname { get; set; }
+        public string Fullname { get; set; } // Ad ve soyadı birleştirin
+        public string Surname { get; set; } // Opsiyonel ayrı soyad özelliği
 
-        // Use enum for AccountType
-        public AccountTypeEnum AccountType { get; set; } = AccountTypeEnum.Customer; // Default to Customer
-
-        // Navigation property for related Requests
-        public virtual ICollection<Requests> Requests { get; set; } // Collection of Requests
+        public AccountTypeEnum AccountType { get; set; } = AccountTypeEnum.Customer; // Varsayılan olarak Customer
     }
 }

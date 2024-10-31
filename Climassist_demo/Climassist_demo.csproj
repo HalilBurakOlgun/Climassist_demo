@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\Login.css" />
+    <None Include="wwwroot\css\Register.css" />
     <None Include="wwwroot\img\about.jpg" />
     <None Include="wwwroot\img\apple-touch-icon.png" />
     <None Include="wwwroot\img\climassist_logo.png" />
@@ -141,6 +143,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Views\Requests\" />
   </ItemGroup>
 
 </Project>

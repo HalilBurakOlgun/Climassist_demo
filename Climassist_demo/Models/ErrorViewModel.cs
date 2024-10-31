@@ -1,4 +1,7 @@
+#nullable enable
+
 namespace Climassist_demo.Models
+
 {
     public class ErrorViewModel
     {

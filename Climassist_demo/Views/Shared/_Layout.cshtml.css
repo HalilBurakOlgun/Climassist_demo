@@ -1,5 +1,20 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/* Navbar stil ayarları */
+.navbar {
+    position: fixed; /* Navbar'ı sabitler */
+    top: 0; /* Üst kısma yapışır */
+    left: 0;
+    right: 0;
+    background-color: white; /* Arka plan rengi */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Gölgeli efekt */
+    z-index: 1000; /* Diğer öğelerin üstünde görünmesini sağlar */
+}
+
+/* Sayfa içeriği ile navbar arasındaki boşluk */
+body {
+    padding-top: 70px; /* Navbar yüksekliği kadar yukarıdan boşluk bırakır */
+}
 
 a.navbar-brand {
   white-space: normal;

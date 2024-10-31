@@ -1,52 +1,27 @@
-﻿@using Climassist_demo.ViewModels;
-@model LoginViewModel;
+﻿@model Climassist_demo.ViewModels.LoginViewModel
 
-@{
-    ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
-}
-<div class="account-container">
-    <div class="account-box">
+<h2>Login</h2>
+<link rel="stylesheet" href="~/css/Login.css" />
 
-        <h2 class="text-center mb-4">
-            Giriş Yap
-        </h2>
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="float-end">
-                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
-                    Şifremi unuttum
-                </a>
-            </div>
-            <div class="form-check mb-3">
-                <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input"/>
-                    @Html.DisplayNameFor(a => a.RememberMe)
-                </label>
-            </div>
-            <input type="submit" value="Login" class="btn btn-success w-100 p-2"/>
-            <p class="text-center mt-2">
-                Hesabım yok <a asp-controller="Account" asp-action"Register" class="text-decoration-none">Kayıt ol</a>
-            </p>
-            <div class="text-center">
-                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
-            </div>
-        </form>
-    </div>   
-</div> 
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label>
+            <input asp-for="RememberMe" /> Remember Me
+        </label>
+    </div>
+    <button type="submit">Login</button>
+</form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
-    }
-}
+<div>
+    <a asp-action="Register">Don't have an account? Register</a>
+</div>

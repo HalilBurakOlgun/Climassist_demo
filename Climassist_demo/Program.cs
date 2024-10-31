@@ -44,5 +44,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "showRequests",
+    pattern: "ShowRequests",
+    defaults: new { controller = "ShowRequest", action = "Show" });
 
 app.Run();

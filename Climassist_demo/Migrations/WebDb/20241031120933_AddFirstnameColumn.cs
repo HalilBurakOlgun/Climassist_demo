@@ -5,14 +5,14 @@
 namespace Climassist_demo.Migrations.WebDb
 {
     /// <inheritdoc />
-    public partial class AddAccountTypeToUsers : Migration
+    public partial class AddFirstnameColumn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "AccountType",
-                table: "AspNetUsers",
+                name: "FullName",
+                table: "Requests",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -21,8 +21,8 @@ namespace Climassist_demo.Migrations.WebDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AccountType",
-                table: "AspNetUsers");
+                name: "FullName",
+                table: "Requests");
         }
     }
 }

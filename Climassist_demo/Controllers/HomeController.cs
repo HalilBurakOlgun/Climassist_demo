@@ -1,33 +1,36 @@
-using Climassist_demo.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Climassist_demo.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Climassist_demo.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<Users> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        // UserManager'ı başlatmak için bir yapılandırıcı ekleyin
+        public HomeController(UserManager<Users> userManager)
         {
-            _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _userManager.FindByNameAsync(User.Identity.Name).Result; // Kullanıcıyı bul
+                if (user != null) // Kullanıcıyı kontrol et
+                {
+                    string greeting = $"Merhaba {user.Fullname} {user.Surname}"; // Ad ve soyad birleştir
+                    ViewBag.GreetingMessage = greeting; // Mesajı ViewBag'e ekle
+                }
+                else
+                {
+                    // Kullanıcı bulunamazsa, gerekli işlemleri yapabilirsiniz
+                    ViewBag.GreetingMessage = "Kullanıcı bulunamadı.";
+                }
+            }
             return View();
-        }
-        [Authorize]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

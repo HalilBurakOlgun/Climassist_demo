@@ -1,0 +1,23 @@
+﻿@model Climassist_demo.Models.Request
+
+<h2>Request Details</h2>
+
+<div>
+    <h4>User Information</h4>
+    <p><strong>Name:</strong> @Model.UserName</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Company Type:</strong> @Model.CompanyType</p>
+    <p><strong>Phone:</strong> @Model.Phone</p>
+</div>
+
+<div>
+    <h4>Request Information</h4>
+    <p><strong>Request Type:</strong> @Model.RequestType</p>
+    <p><strong>Spare Part Type:</strong> @Model.SparePart</p>
+    <p><strong>Recovery Time:</strong> @Model.RecoveryTime</p>
+    <p><strong>Unit Type:</strong> @Model.UnitType</p>
+    <p><strong>Message:</strong> @Model.Message</p>
+</div>
+
+<p><strong>Status:</strong> @Model.Status</p>
+<a href="@Url.Action("Create", "Request")">Create Another Request</a>

@@ -1,68 +1,66 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Climassist_demo.Data;
 using Climassist_demo.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
+using Climassist_demo.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Climassist_demo.Controllers
 {
-    public class RequestsController : Controller
+    public class RequestController : Controller
     {
         private readonly WebDbContext _context;
+        private readonly UserManager<Users> _userManager;
 
-        public RequestsController(WebDbContext context)
+        public RequestController(WebDbContext context, UserManager<Users> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Requests/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Requests/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Requests request)
+        public async Task<IActionResult> Create(RequestViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(request);
+                var user = await _userManager.GetUserAsync(User);
+                int userId = user != null && int.TryParse(user.Id, out int parsedId) ? parsedId : 0;
+
+                var request = new Request
+                {
+                    UserId = userId,
+                    UserName = model.FullName,
+                    Email = model.Email,
+                    CompanyType = model.CompanyType,
+                    Phone = model.Phone,
+                    RequestType = model.RequestType,
+                    SparePart = model.SparePartType,
+                    RecoveryTime = model.RecoveryTime,
+                    UnitType = model.UnitType,
+                    Message = model.Message
+                };
+
+                _context.Requests.Add(request);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Show", new { id = request.Id });
             }
 
-            request.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            try
-            {
-                _context.Add(request);
-                await _context.SaveChangesAsync(); // Veritabanına kaydetme işlemi
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Hata: " + ex.Message); // Hata varsa konsola yazdır
-                return View(request);
-            }
-
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
-
-        // GET: Requests/MyRequests
-        [Authorize]
-        public async Task<IActionResult> MyRequests()
+        [HttpGet]
+        public async Task<IActionResult> Show(int id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) return NotFound();
 
-            // Kullanıcının kendi taleplerini getirin
-            var requests = await _context.Requests
-                .Where(r => r.UserId == userId)
-                .ToListAsync();
-
-            return View(requests);
+            return View(request);
         }
     }
 }

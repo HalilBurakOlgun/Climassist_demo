@@ -1,26 +1,13 @@
-﻿using Climassist_demo.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Climassist_demo.Models;
 
 namespace Climassist_demo.Data
 {
-    public class WebDbContext : IdentityDbContext<Users>
+    public class WebDbContext : DbContext
     {
-        public WebDbContext(DbContextOptions options) : base(options)
-        { }
+        public WebDbContext(DbContextOptions<WebDbContext> options) : base(options) { }
 
-        public DbSet<Requests> Requests { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            // Configuring the foreign key relationship between Request and Users
-            modelBuilder.Entity<Requests>()
-                .HasOne(r => r.User)
-                .WithMany(u => u.Requests)
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Optional: Specify delete behavior
-        }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 }
