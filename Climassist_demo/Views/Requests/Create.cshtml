@@ -1,0 +1,127 @@
+﻿<section id="services" class="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Bakım Talebinizi Oluşturun</h2>
+            <p class="description">Bakım talebinizi bize çevrimiçi olarak iletebilirsiniz. Size en kısa sürede dönüş yapabilmemiz için aşağıdaki kısa formu doldurarak detayları bizimle paylaşmanızı rica ederiz.</p>
+            <form asp-action="Create" method="post" id="requestForm">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" name="Name" class="form-control" placeholder="Adınız" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" name="Surname" class="form-control" placeholder="Soyadınız" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="email" name="Email" class="form-control" placeholder="E-posta Adresiniz" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <select name="ClientType" class="form-select" required>
+                            <option value="" disabled selected>Bireysel/Şirket</option>
+                            <option value="individual">Bireysel</option>
+                            <option value="company">Şirket</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="tel" name="Phone" class="form-control" placeholder="Tel No: 05XX1112233" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <select name="RequestType" class="form-select" id="requestType" required onchange="updateFormFields()">
+                            <option value="" disabled selected>Talep Türü</option>
+                            <option value="Yedek Parça">Yedek Parça</option>
+                            <option value="Teknik Servis Hizmeti">Teknik Servis Hizmeti</option>
+                            <option value="Kurulum ve Montaj">Kurulum ve Montaj</option>
+                            <option value="Periyodik Bakım">Periyodik Bakım</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" id="sparePartFields" style="display: none;">
+                    <div class="form-group col-md-6">
+                        <select name="SparePartType" class="form-select" required>
+                            <option value="" disabled selected>Yedek Parça Seçiniz</option>
+                            <option value="VRF / DVM S2 / S / Plus IV">VRF / DVM S2 / S / Plus IV</option>
+                            <option value="FJM Multi">FJM Multi</option>
+                            <option value="Split / RAC / CAC / PAC">Split / RAC / CAC / PAC</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" id="maintenanceFields" style="display: none;">
+                    <div class="form-group col-md-6">
+                        <select name="RecoveryTime" class="form-select" required>
+                            <option value="" disabled selected>Bakım Aralığı Seçin</option>
+                            <option value="3 months">3 aylık</option>
+                            <option value="6 months">6 aylık</option>
+                            <option value="1 year">1 yıllık</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row" id="unitTypeFields" style="display: none;">
+                    <div class="form-group col-md-6">
+                        <select name="UnitType" class="form-select" required>
+                            <option value="" disabled selected>Ünite Türünü Seçin</option>
+                            <option value="inner unit">İç ünite</option>
+                            <option value="outer unit">Dış ünite</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <textarea name="Message" class="form-control" placeholder="Mesajınızı buraya yazın" required></textarea>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Talebi gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    function updateFormFields() {
+        const requestType = document.getElementById("requestType").value;
+        const sparePartFields = document.getElementById("sparePartFields");
+        const maintenanceFields = document.getElementById("maintenanceFields");
+        const unitTypeFields = document.getElementById("unitTypeFields");
+
+        // Tüm alanları gizleyip required niteliklerini kaldırın
+        sparePartFields.style.display = "none";
+        maintenanceFields.style.display = "none";
+        unitTypeFields.style.display = "none";
+
+        document.getElementsByName("SparePartType")[0].required = false;
+        document.getElementsByName("RecoveryTime")[0].required = false;
+        document.getElementsByName("UnitType")[0].required = false;
+
+        // Seçilen talep türüne göre alanları gösterip required ekleyin
+        if (requestType === "Yedek Parça") {
+            sparePartFields.style.display = "block";
+            document.getElementsByName("SparePartType")[0].required = true;
+        } else if (requestType === "Periyodik Bakım") {
+            maintenanceFields.style.display = "block";
+            document.getElementsByName("RecoveryTime")[0].required = true;
+        } else if (requestType === "Teknik Servis Hizmeti") {
+            unitTypeFields.style.display = "block";
+            document.getElementsByName("UnitType")[0].required = true;
+        }
+    }
+
+    document.getElementById("requestForm").onsubmit = function () {
+        const messageField = document.getElementsByName("Message")[0].value;
+        if (!messageField.trim()) {
+            alert("Mesaj kutusunu boş bırakamazsınız!");
+            return false; // Form gönderimini engelle
+        }
+        return true; // Form gönderimine izin ver
+    };
+</script>
